@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      function getSubsets(array, sum) {
+        function fork(i = 0, s = 0, t = []) {
+          if (s === sum) {
+            result.push(t);
+            return;
+          }
+          if (i === array.length) {
+            return;
+          }
+
+          if (s + array[i] <= sum) {
+            // shout circuit for positive numbers only
+            fork(i + 1, s + array[i], t.concat(array[i]));
+          }
+          fork(i + 1, s, t);
+        }
+
+        var result = [];
+        var final = [];
+        fork();
+
+        for (let j = 0; j < result.length; j++) {
+          if (result[j].length === 2) {
+            final.push(result[j]);
+            return final;
+          }
+        }
+      }
+
+      var array = [];
+      var arrayLength = prompt(
+        "Hi, welcome to this Test Game.\nPlease set the array's length:"
+      );
+
+      for (var i = 0; i < arrayLength; i++) {
+        var iterationNumber = i + 1;
+        var arrayValues = prompt(
+          "Please set value " + iterationNumber + " to the Array:"
+        );
+        array.push(parseInt(arrayValues));
+      }
+
+      var numberToFind = parseInt(
+        prompt("Please set the number you're looking for:")
+      );
+
+      var conclusionValue = getSubsets(array, numberToFind); //[10, 1, 2, 4, 6, 3]
+
+      var validation = Array.isArray(conclusionValue);
+
+      console.log("Array a pasar a función => ", array);
+      console.log("Número a Buscar => ", numberToFind);
+      console.log("Array Final => ", conclusionValue);
+      console.log("Validación => ", validation);
+
+      if (validation) {
+        alert(
+          "Thanks for playin'. This is the solution:\nThe resulted subset is [" +
+            conclusionValue[0][0] +
+            "," +
+            conclusionValue[0][1] +
+            "]\n\nPowered by Miguel Garcia :)"
+        );
+      } else {
+        alert(
+          "Thank you for your input, but there is not subset for the given data\n\nPowered by Miguel Garcia :)"
+        );
+      }
+
+    </script>
+  </body>
+</html>
